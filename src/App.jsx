@@ -1,7 +1,7 @@
-import './App.scss';
 import React, { useState } from 'react';
 import 'bulma/css/bulma.css';
 import '@fortawesome/fontawesome-free/css/all.css';
+import './App.scss';
 
 import { Tabs } from './components/Tabs';
 
@@ -14,9 +14,7 @@ export const tabs = [
 export const App = () => {
   const [activeTabId, setActiveTabId] = useState(tabs[0].id);
 
-  const selectedTab = activeTabId
-    ? tabs.find(tab => tab.id === activeTabId)
-    : tabs[0];
+  const selectedTab = tabs.find(tab => tab.id === activeTabId) || tabs[0];
 
   const onTabSelected = id => setActiveTabId(id);
 
@@ -24,11 +22,13 @@ export const App = () => {
     <div className="section">
       <h1 className="title">Selected tab is {selectedTab.title}</h1>
 
-      <Tabs
-        tabs={tabs}
-        activeTabId={activeTabId}
-        onTabSelected={onTabSelected}
-      />
+      <div data-cy="TabsComponent">
+        <Tabs
+          tabs={tabs}
+          activeTabId={activeTabId}
+          onTabSelected={onTabSelected}
+        />
+      </div>
     </div>
   );
 };
